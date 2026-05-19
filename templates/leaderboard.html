@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block content %}
+<section class="leaderboard-card">
+  <h2>Leaderboard</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>User</th>
+          <th>Score</th>
+          <th>Time Taken</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in top_scores %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ item.user.username }}</td>
+          <td>{{ item.score }} / {{ item.total }}</td>
+          <td>{{ item.time_taken }}s</td>
+          <td>{{ item.taken_at.strftime('%Y-%m-%d %H:%M') }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="5">No scores submitted yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

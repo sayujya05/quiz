@@ -1,0 +1,79 @@
+{% extends 'layout.html' %} {% block content %}
+<h2>Admin Dashboard</h2>
+<section class="admin-card">
+  <h3>Add New Question</h3>
+  <form method="post" action="{{ url_for('admin_add') }}">
+    <label>Question text</label>
+    <textarea name="text" rows="3" required></textarea>
+    <label>Option A</label>
+    <input type="text" name="option_a" required />
+    <label>Option B</label>
+    <input type="text" name="option_b" required />
+    <label>Option C</label>
+    <input type="text" name="option_c" />
+    <label>Option D</label>
+    <input type="text" name="option_d" />
+    <label>Correct Answer</label>
+    <input
+      type="text"
+      name="correct"
+      required
+      placeholder="Exact option text"
+    />
+    <label>Category</label>
+    <input
+      type="text"
+      name="category"
+      placeholder="e.g. Math, Science, History"
+    />
+    <button type="submit" class="button">Add Question</button>
+  </form>
+</section>
+
+<section class="admin-card">
+  <h3>Existing Questions</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Question</th>
+          <th>Correct Answer</th>
+          <th>Category</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for question in questions %}
+        <tr>
+          <td>{{ question.id }}</td>
+          <td>{{ question.text }}</td>
+          <td>{{ question.correct_answer }}</td>
+          <td>{{ question.category }}</td>
+          <td>
+            <a
+              class="button button-small"
+              href="{{ url_for('admin_edit', question_id=question.id) }}"
+              >Edit</a
+            >
+            <form
+              method="post"
+              action="{{ url_for('admin_delete', question_id=question.id) }}"
+              class="inline-form"
+            >
+              <button type="submit" class="button button-danger button-small">
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="4">No questions available.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

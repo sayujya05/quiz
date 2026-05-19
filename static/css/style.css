@@ -1,0 +1,244 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f7fb;
+  color: #1d2939;
+}
+
+.container {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0;
+}
+
+.site-header,
+.site-footer {
+  background: #1e3a8a;
+  color: #fff;
+}
+
+.site-header a,
+.site-footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.site-header {
+  padding: 18px 0;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a,
+.nav-user {
+  margin-left: 18px;
+}
+
+.hero {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 14px 40px rgba(31, 41, 55, 0.08);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+  align-items: flex-end;
+}
+
+.category-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.category-form label {
+  margin: 0;
+}
+
+.category-form select {
+  min-width: 200px;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: white;
+}
+
+.hero-actions .button,
+.category-form .button {
+  min-width: 130px;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-secondary {
+  background: #64748b;
+}
+
+.button-primary {
+  background: #10b981;
+}
+
+.button-danger {
+  background: #dc2626;
+}
+
+.button-small {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
+.form-card,
+.admin-card,
+.quiz-card,
+.result-card,
+.leaderboard-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+label {
+  display: block;
+  margin: 16px 0 8px;
+  font-weight: 600;
+}
+
+input[type='text'],
+input[type='password'],
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.flash-grid {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.flash {
+  padding: 14px 18px;
+  border-radius: 12px;
+}
+
+.flash-success {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.flash-danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.flash-warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.flash-info {
+  background: #dbeafe;
+  color: #1e3a8a;
+}
+
+.info-cards {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
+.question-card {
+  margin-bottom: 20px;
+}
+
+.question-text {
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+}
+
+.option-label {
+  display: block;
+  margin-bottom: 12px;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.option-label input {
+  margin-right: 12px;
+}
+
+.quiz-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+ table td {
+  text-align: left;
+  padding: 14px 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.inline-form {
+  display: inline;
+}
+
+.timer {
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 14px 0;
+}

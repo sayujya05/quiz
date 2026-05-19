@@ -1,0 +1,50 @@
+{% extends 'layout.html' %} {% block content %}
+<section class="form-card">
+  <h2>Edit Question</h2>
+  <form method="post">
+    <label>Question text</label>
+    <textarea name="text" rows="3" required>{{ question.text }}</textarea>
+    <label>Option A</label>
+    <input
+      type="text"
+      name="option_a"
+      value="{{ options[0] if options|length > 0 else '' }}"
+      required
+    />
+    <label>Option B</label>
+    <input
+      type="text"
+      name="option_b"
+      value="{{ options[1] if options|length > 1 else '' }}"
+      required
+    />
+    <label>Option C</label>
+    <input
+      type="text"
+      name="option_c"
+      value="{{ options[2] if options|length > 2 else '' }}"
+    />
+    <label>Option D</label>
+    <input
+      type="text"
+      name="option_d"
+      value="{{ options[3] if options|length > 3 else '' }}"
+    />
+    <label>Correct Answer</label>
+    <input
+      type="text"
+      name="correct"
+      value="{{ question.correct_answer }}"
+      required
+    />
+    <label>Category</label>
+    <input
+      type="text"
+      name="category"
+      value="{{ question.category }}"
+      placeholder="e.g. Math, Science, History"
+    />
+    <button type="submit" class="button">Save Changes</button>
+  </form>
+</section>
+{% endblock %}

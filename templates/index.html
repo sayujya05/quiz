@@ -1,0 +1,58 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="hero">
+  <h2>Welcome to the Online Quiz Platform</h2>
+  <p>Practice quizzes, timed exams, and a leaderboard for top performers.</p>
+  <div class="hero-actions">
+    {% if current_user %}
+    <form method="get" action="{{ url_for('quiz') }}" class="category-form">
+      <label for="category">Choose category</label>
+      <select id="category" name="category">
+        <option value="">All categories</option>
+        {% for category in categories %}
+        <option value="{{ category }}">{{ category }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="button">Start Quiz</button>
+    </form>
+    {% else %}
+    <a class="button" href="{{ url_for('login') }}">Login to Start</a>
+    <a class="button button-secondary" href="{{ url_for('register') }}"
+      >Register</a
+    >
+    {% endif %}
+    <a class="button button-secondary" href="{{ url_for('leaderboard') }}"
+      >Leaderboard</a
+    >
+  </div>
+</div>
+
+<div class="info-cards">
+  <div class="card">
+    <h3>Timed Exams</h3>
+    <p>
+      Each quiz has a countdown timer. If time expires, your answers are
+      submitted automatically.
+    </p>
+  </div>
+  <div class="card">
+    <h3>Randomized Questions</h3>
+    <p>
+      Question order changes every session, and answer sets are shuffled for
+      each quiz.
+    </p>
+  </div>
+  <div class="card">
+    <h3>Admin Controls</h3>
+    <p>Admins can add, update, or remove questions from the quiz library.</p>
+  </div>
+</div>
+
+<div class="summary">
+  <p>Total questions available: <strong>{{ question_count }}</strong></p>
+  {% if current_user and current_user.is_teacher %}
+  <p>
+    Teacher mode enabled. <a href="{{ url_for('admin') }}">Manage questions</a>.
+  </p>
+  {% endif %}
+</div>
+{% endblock %}
