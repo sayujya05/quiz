@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,16 +13,22 @@ import random
 load_dotenv()
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "change-this-secret-key")
+secret_key = os.environ.get("SECRET_KEY")
+if not secret_key:
+    raise RuntimeError(
+        "SECRET_KEY environment variable is required. "
+        "Set it in .env or in your environment before running the app."
+    )
+app.config["SECRET_KEY"] = secret_key
 
 instance_path = Path(app.root_path) / "instance"
 instance_path.mkdir(exist_ok=True)
 
 default_db_path = instance_path / "quiz.db"
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
-    "DATABASE_URL",
-    f"sqlite:///{default_db_path.as_posix()}"
-)
+db_uri = os.environ.get("DATABASE_URL")
+if not db_uri:
+    db_uri = f"sqlite:///{default_db_path.as_posix()}"
+app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
@@ -73,10 +79,10 @@ def setup_database():
                 conn.execute(text("ALTER TABLE question ADD COLUMN category VARCHAR(120) NOT NULL DEFAULT 'General'"))
         if not User.query.filter_by(username=ADMIN_USERNAME).first():
             admin = User(
-                username=ADMIN_USERNAME,
-                password_hash=generate_password_hash(ADMIN_PASSWORD),
-                is_admin=True,
-                role="teacher",
+                username=ADMIN_USERNAME, # type: ignore
+                password_hash=generate_password_hash(ADMIN_PASSWORD), # type: ignore
+                is_admin=True, # type: ignore
+                role="teacher", # type: ignore
             )
             db.session.add(admin)
             db.session.commit()
@@ -140,9 +146,9 @@ def register():
             flash("Username already exists.", "danger")
             return redirect(url_for("register"))
         user = User(
-            username=username,
-            password_hash=generate_password_hash(password),
-            role=role,
+            username=username, # type: ignore
+            password_hash=generate_password_hash(password), # type: ignore
+            role=role, # type: ignore
         )
         db.session.add(user)
         db.session.commit()
@@ -213,10 +219,10 @@ def submit_quiz():
     total = len(questions)
     time_taken = int(request.form.get("time_taken", QUIZ_TIME_SECONDS))
     new_score = Score(
-        user_id=user.id,
-        score=score,
-        total=total,
-        time_taken=max(0, QUIZ_TIME_SECONDS - time_taken),
+        user_id=user.id, # pyright: ignore[reportCallIssue] # type: ignore
+        score=score, # type: ignore
+        total=total, # type: ignore
+        time_taken=max(0, QUIZ_TIME_SECONDS - time_taken), # type: ignore
     )
     db.session.add(new_score)
     db.session.commit()
@@ -257,7 +263,7 @@ def admin_add():
         flash("Please provide a question, at least two options, and a correct answer.", "danger")
         return redirect(url_for("admin"))
     options = json.dumps([option_a, option_b, option_c, option_d])
-    question = Question(text=text, options=options, correct_answer=correct, category=category)
+    question = Question(text=text, options=options, correct_answer=correct, category=category) # type: ignore
     db.session.add(question)
     db.session.commit()
     flash("Question added.", "success")

@@ -18,11 +18,12 @@ A simple Flask-based quiz platform with:
    ```powershell
    pip install -r requirements.txt
    ```
-3. Run the app:
+3. Copy `.env.example` to `.env` and set your values.
+4. Run the app:
    ```powershell
    python app.py
    ```
-4. Open the app in your browser at `http://127.0.0.1:5000`
+5. Open the app in your browser at `http://127.0.0.1:5000`
 
 ### Database configuration
 
