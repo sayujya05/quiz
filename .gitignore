@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+instance/quiz.db
+.env
+.env.*

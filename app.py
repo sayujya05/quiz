@@ -1,3 +1,7 @@
+import os
+from pathlib import Path
+
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -6,9 +10,19 @@ from datetime import datetime
 import json
 import random
 
+load_dotenv()
+
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "change-this-secret-key"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///quiz.db"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "change-this-secret-key")
+
+instance_path = Path(app.root_path) / "instance"
+instance_path.mkdir(exist_ok=True)
+
+default_db_path = instance_path / "quiz.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+    "DATABASE_URL",
+    f"sqlite:///{default_db_path.as_posix()}"
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
