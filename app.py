@@ -67,21 +67,12 @@ QUIZ_QUESTION_COUNT = 5
 def setup_database():
     with app.app_context():
         db.create_all()
-        with db.engine.connect() as conn:
-            result = conn.execute(text("PRAGMA table_info(user)"))
-            user_columns = [row[1] for row in result]
-            if "role" not in user_columns:
-                conn.execute(text("ALTER TABLE user ADD COLUMN role VARCHAR(20) NOT NULL DEFAULT 'student'"))
-            result = conn.execute(text("PRAGMA table_info(question)"))
-            question_columns = [row[1] for row in result]
-            if "category" not in question_columns:
-                conn.execute(text("ALTER TABLE question ADD COLUMN category VARCHAR(120) NOT NULL DEFAULT 'General'"))
         if not User.query.filter_by(username=ADMIN_USERNAME).first():
             admin = User(
                 username=ADMIN_USERNAME, # type: ignore
                 password_hash=generate_password_hash(ADMIN_PASSWORD), # type: ignore
                 is_admin=True, # type: ignore
-                role="teacher", # type: ignore
+                role="teacher", # type: ignore  
             )
             db.session.add(admin)
             db.session.commit()
